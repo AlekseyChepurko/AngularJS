@@ -1,40 +1,22 @@
-angular.module('myApp', ['ui.router', 'satellizer'])
-    .config(($stateProvider) => {
-        $stateProvider
-            .state({
-                name: 'layout',
-                abstract: true,
-                template: '<ui-view></ui-view>',
-                resolve: {
-                    logged: ($http, $state) => {
-                        $http.get('/aut')
-                            .then(res => {
-                                if(!res.data) $state.go('login')
-                            })
-                    }
-                }
-            })
-            .state({
-                name: "layout.weather",
-                url: '/',
-                template: '<div>weather</div>'
-            })
-            .state({
-                name: 'login',
-                url: '/login',
-                template: `<button ng-click="authenticate('google')">Sign in with Google</button>`
-            })
-    })
-    .config( ($authProvider) => {
-        $authProvider.google({
-            clientId: '510983164184-qhk9d92o82f50ubkvducp4fl9j31jf8c.apps.googleusercontent.com'
+angular.module('myApp', ['angular-oauth2'])
+    .run(['OAuth', function(OAuth) {
+        OAuth.configure({
+            baseUrl: 'https://www.googleapis.com/auth/adwords',
+            clientId: '510983164184-qhk9d92o82f50ubkvducp4fl9j31jf8c.apps.googleusercontent.com',
+            clientSecret: '3v2NOmUYMq7ad18S36Q_VO7j' // optional
         });
-    })
+    }])
 
-    .controller('LoginCtrl', function($scope, $auth) {
-        $scope.authenticate = function(provider) {
-            console.log(provider);
-            $auth.authenticate(provider);
-        };
-
+    .component('someComponent', {
+        controller: (OAuth) => {
+            OAuth.getAccessToken({
+                username: 'google account',
+                password: 'password'
+            }).then(data => {
+                console.log("data",data);
+            });
+            console.log(OAuth.isAuthenticated());
+        },
+        controllerAs: "someCtrl",
+        template: '<div>some component</div>'
     });

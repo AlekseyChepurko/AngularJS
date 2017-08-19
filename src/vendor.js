@@ -1,3 +1,5 @@
 import "angular"
 import "angular-ui-router"
-import "satellizer"
+import "angular-cookies"
+import "query-string"
+import "angular-oauth2"

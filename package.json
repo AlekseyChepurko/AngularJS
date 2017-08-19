@@ -10,9 +10,12 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.6.5",
+    "angular-cookies": "^1.6.6",
+    "angular-oauth2": "^4.1.1",
     "angular-ui-router": "^1.0.3",
     "jwt-simple": "^0.5.1",
     "mongoose": "^4.11.7",
+    "query-string": "^5.0.0",
     "request": "^2.81.0",
     "satellizer": "^0.15.5"
   },
