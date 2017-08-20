@@ -1,5 +1,3 @@
 import "angular"
 import "angular-ui-router"
-import "angular-cookies"
-import "query-string"
-import "angular-oauth2"
+import "../bower_components/oauth-js/dist/oauth"

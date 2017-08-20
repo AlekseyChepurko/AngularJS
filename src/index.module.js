@@ -1,22 +1,28 @@
-angular.module('myApp', ['angular-oauth2'])
-    .run(['OAuth', function(OAuth) {
-        OAuth.configure({
-            baseUrl: 'https://www.googleapis.com/auth/adwords',
-            clientId: '510983164184-qhk9d92o82f50ubkvducp4fl9j31jf8c.apps.googleusercontent.com',
-            clientSecret: '3v2NOmUYMq7ad18S36Q_VO7j' // optional
-        });
-    }])
+import './services/services.module';
+import './components/components.module';
 
-    .component('someComponent', {
-        controller: (OAuth) => {
-            OAuth.getAccessToken({
-                username: 'google account',
-                password: 'password'
-            }).then(data => {
-                console.log("data",data);
-            });
-            console.log(OAuth.isAuthenticated());
-        },
-        controllerAs: "someCtrl",
-        template: '<div>some component</div>'
+angular.module('myApp', ['ui.router', 'services', 'components'])
+    .config(($stateProvider) => {
+        $stateProvider
+            .state({
+                name: 'logged',
+                abstract: true,
+                template: '<ui-view></ui-view>',
+                resolve: {
+                    logged: (userService, $state) => {
+                        if ( !userService.isAuth() )
+                            $state.go('login');
+                    }
+                }
+            })
+            .state({
+                name: 'logged.home',
+                url: '/',
+                template: "<div>loggedind</div>"
+            })
+            .state({
+                name: 'login',
+                url: '/login',
+                template: '<login></login>'
+            })
     });
