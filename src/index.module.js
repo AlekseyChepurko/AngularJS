@@ -1,7 +1,10 @@
-import './services/services.module';
-import './components/components.module';
+import "angular";
+import uiRouter from "angular-ui-router";
+import "../bower_components/oauth-js/dist/oauth";
+import { services } from './services/services.module';
+import { components } from './components/components.module';
 
-angular.module('myApp', ['ui.router', 'services', 'components'])
+angular.module('myApp', [uiRouter, services, components])
     .config(($stateProvider) => {
         $stateProvider
             .state({
@@ -18,17 +21,14 @@ angular.module('myApp', ['ui.router', 'services', 'components'])
             .state({
                 name: 'logged.home',
                 url: '/:city',
-                template: "<weather city='city'></weather>",
+                component: 'weather',
                 resolve: {
                     city: ($stateParams) => $stateParams.city
-                },
-                controller: function(city, $scope) {
-                    $scope.city = city
                 }
             })
             .state({
                 name: 'login',
                 url: '/login',
-                template: '<login></login>'
+                component: 'login'
             })
     });
