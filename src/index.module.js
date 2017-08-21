@@ -17,8 +17,14 @@ angular.module('myApp', ['ui.router', 'services', 'components'])
             })
             .state({
                 name: 'logged.home',
-                url: '/',
-                template: "<div>loggedind</div>"
+                url: '/:city',
+                template: "<weather city='city'></weather>",
+                resolve: {
+                    city: ($stateParams) => $stateParams.city
+                },
+                controller: function(city, $scope) {
+                    $scope.city = city
+                }
             })
             .state({
                 name: 'login',

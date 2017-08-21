@@ -1,11 +1,12 @@
-export function UserService() {
+export default function UserService() {
     OAuth.initialize('7lwNrKTGBwoFHrTzZskH499XxkA');
 
     let isAuth = sessionStorage.getItem("isAuth") || false;
     let tokenDeadline = parseInt(sessionStorage.getItem("tokenDeadline")) || 0;
 
     this.isAuth = () => {
-        if (Date.now() < tokenDeadline && isAuth) {
+        // if (Date.now() < tokenDeadline && isAuth) {
+        if (isAuth) {
             return true
         }
         isAuth = false;
