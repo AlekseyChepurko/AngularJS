@@ -1,6 +1,7 @@
 import UserService from './user.service';
 import WeatherService from './weather.service';
 
-angular.module('services',[])
+export const services = angular.module('services',[])
     .service('userService', UserService)
-    .service('weatherService', WeatherService);
+    .service('weatherService', WeatherService)
+    .name;

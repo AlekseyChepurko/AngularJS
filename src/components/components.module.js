@@ -3,8 +3,9 @@ import { UserComponent } from './user/user.component';
 import { LoginComponent } from './login/login.component';
 import { WeatherComponent } from './weather/weather.component';
 
-angular.module('components', [])
+export const components = angular.module('components', [])
     .component('user', UserComponent)
     .component('login', LoginComponent)
     .component('cityChoice', cityChoice)
-    .component('weather', WeatherComponent);
+    .component('weather', WeatherComponent)
+    .name;
