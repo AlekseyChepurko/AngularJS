@@ -23,14 +23,13 @@ app.listen(3001, () => {
     console.log('app listening on port 3001!');
 });
 
+app.get('/', (req, res) => {
+    res.redirect('/!#/sankt-peterburg');
+
+});
 
 client.connect((err)=>{
     if (err) throw err;
-
-    // const q = 'SELECT * FROM weather.users where id=123';
-    // client.query(q, (err, data) => {
-    //     console.log(data.rows[0]);
-    // });
 
     app.post('/api/user', (req, res) => {
         const {
