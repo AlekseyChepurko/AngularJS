@@ -1,12 +1,11 @@
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 const entryPoints = ['vendor', 'app'];
 
 module.exports = {
     entry: {
         app: './src/index.module.js',
-        vendor: './src/vendor.js'
     },
     output: {
         filename: '[name].bundle.js',
@@ -42,5 +41,11 @@ module.exports = {
                 }
             }
         }),
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendor",
+            minChunks: function (module) {
+                return module.context && module.context.indexOf("node_modules") !== -1;
+            }
+        })
     ]
 };
